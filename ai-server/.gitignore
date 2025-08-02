@@ -1,0 +1,103 @@
+# 🐍 Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 🌐 Virtual Environment (가장 중요!)
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# 🔐 Environment Variables (민감정보)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.staging
+
+# 🔧 Development Tools
+.python-version       # pyenv (선택사항)
+.coverage
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+htmlcov/
+
+# 💾 Database
+*.db
+*.sqlite3
+*.sqlite
+
+# 📊 Logs
+*.log
+logs/
+log/
+
+# 🖥️ IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.spyderproject
+.spyproject
+.rope_project_history
+
+# 📱 OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 🐳 Docker
+.dockerignore
+docker-compose.override.yml
+
+# 📦 Node.js (프론트엔드 있을 경우)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ☁️ Cloud & Deployment
+.serverless/
+.aws-sam/
+.chalice/
+
+# 🔍 Misc
+.sass-cache/
+.connect.lock
+.nyc_output
+.grunt
+bower_components
+.lock-wscript
+.tmp
+.temp
