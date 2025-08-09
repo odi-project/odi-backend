@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: api-server
+
+  webclient:
+    connection:
+      timeout: 5000
+      read:
+        timeout: 30000
+      write:
+        timeout: 30000
+
+# External API Configuration
+external:
+  chat:
+    base-url: http://localhost:8000
+    api-key: ${CHAT_API_KEY:}
+    timeout:
+      connection: 5s
+      read: 30s
+      write: 30s
+    retry:
+      max-attempts: 3
+      delay: 1s
+
+# Logging
+logging:
+  level:
+    com.wireframe.infrastructure.external: DEBUG
+    reactor.netty: INFO
+    org.springframework.web.reactive.function.client: DEBUG
+
+# Actuator for Health Checks
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
