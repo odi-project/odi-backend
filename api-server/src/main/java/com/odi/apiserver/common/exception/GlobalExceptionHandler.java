@@ -56,7 +56,7 @@ public class GlobalExceptionHandler {
      * 🎯 Reactive에서는 WebExchangeBindException을 처리해야 함!
      */
     @ExceptionHandler(WebExchangeBindException.class)
-    public Mono<ResponseEntity<ApiResponse<Object>>> handleWebExchangeBindException(WebExchangeBindException ex) {
+    public ResponseEntity<ApiResponse<Object>> handleWebExchangeBindException(WebExchangeBindException ex) {
         log.error("🚨 WebExchangeBindException occurred (Reactive Validation Error)", ex);
 
         List<ErrorInfo.FieldError> fieldErrors = ex.getBindingResult()
@@ -85,14 +85,14 @@ public class GlobalExceptionHandler {
 
         log.info("📤 Returning validation error response: {}", response);
 
-        return Mono.just(ResponseEntity.badRequest().body(response));
+        return ResponseEntity.badRequest().body(response);
     }
 
     /**
      * 비즈니스 예외 처리
      */
     @ExceptionHandler(BusinessException.class)
-    public Mono<ResponseEntity<ApiResponse<Object>>> handleBusinessException(BusinessException ex) {
+    public ResponseEntity<ApiResponse<Object>> handleBusinessException(BusinessException ex) {
         log.warn("Business error occurred: {}", ex.getMessage());
 
         ErrorInfo errorInfo = ErrorInfo.builder()
@@ -107,14 +107,14 @@ public class GlobalExceptionHandler {
                 errorInfo
         );
 
-        return Mono.just(ResponseEntity.status(ex.getErrorCode().getHttpStatus()).body(response));
+        return ResponseEntity.status(ex.getErrorCode().getHttpStatus()).body(response);
     }
 
     /**
      * 외부 API 에러 처리
      */
     @ExceptionHandler(WebClientResponseException.class)
-    public Mono<ResponseEntity<ApiResponse<Object>>> handleWebClientException(WebClientResponseException ex) {
+    public ResponseEntity<ApiResponse<Object>> handleWebClientException(WebClientResponseException ex) {
         log.error("External API error occurred", ex);
 
         ErrorInfo errorInfo = ErrorInfo.builder()
@@ -124,14 +124,14 @@ public class GlobalExceptionHandler {
                 .build();
 
         ApiResponse<Object> response = ApiResponse.failure(502, "외부 서비스 오류", errorInfo);
-        return Mono.just(ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(response));
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(response);
     }
 
     /**
      * 일반 예외 처리
      */
     @ExceptionHandler(Exception.class)
-    public Mono<ResponseEntity<ApiResponse<Object>>> handleGeneralException(Exception ex) {
+    public ResponseEntity<ApiResponse<Object>> handleGeneralException(Exception ex) {
         log.error("Unexpected error occurred", ex);
 
         ErrorInfo errorInfo = ErrorInfo.builder()
@@ -141,6 +141,6 @@ public class GlobalExceptionHandler {
                 .build();
 
         ApiResponse<Object> response = ApiResponse.failure(500, "서버 오류", errorInfo);
-        return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 }
